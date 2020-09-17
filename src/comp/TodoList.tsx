@@ -4,11 +4,17 @@ import { Item } from "./todo.model";
 interface ItemModel {
   items: Array<Item>;
 }
-export class TodoList extends React.Component<any, ItemModel> {
+export class TodoList extends React.Component<ItemModel, any> {
+  //1.Called  when the instance of component is beign created and inserted in DOM. - Mounting
   constructor(props: ItemModel) {
+    console.log("TODOLIST - constructor(Mount) ");
     super(props);
+    this.state = { name: "" };
   }
+
+  //2.Called when instance of component is beigin created and inserted in DOM - Mouning
   render() {
+    console.log("TODOLIST - render(Mount) ");
     return (
       <div>
         <ul>
@@ -18,7 +24,7 @@ export class TodoList extends React.Component<any, ItemModel> {
               <button
                 key={item.id}
                 onClick={(e) => {
-                  this.props.onDelete(e, item.id);
+                  // this.props.onDelete(e, item.id);
                 }}
               >
                 del
@@ -28,5 +34,30 @@ export class TodoList extends React.Component<any, ItemModel> {
         </ul>
       </div>
     );
+  }
+  //3.Called when instance of component is beigin created and inserted in DOM - Mouning
+  componentDidMount() {
+    console.log("TODOLIST - componentDidMount (Mount) ");
+    // this.setState({ name: "balajee" });
+  }
+
+  // static getDerivedStateFromProps(props: ItemModel, state: any) {
+  //   console.log(props.items.length);
+  //   if (props.items.length > 0) return true;
+  //   else return false;
+  // }
+  shouldComponentUpdate(nextProp: ItemModel, nextState: any) {
+    console.log(
+      "TODOLIST - shouldComponentUpdate (Update) ",
+      nextProp.items.length
+    );
+    return nextProp.items.length > 0;
+  }
+  // getSnapshotBeforeUpdate() {
+  //   console.log("TODOLIST - getSnapshotBeforeUpdate (Update) ");
+  //   return null;
+  // }
+  componentDidUpdate() {
+    console.log("TODOLIST - componentDidUpdate (Update) ");
   }
 }

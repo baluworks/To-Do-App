@@ -13,15 +13,23 @@ export class TODOComp extends React.Component<any, State> {
   onHandleSubmit(e: any) {
     e.preventDefault();
     this.setState((prevState) => {
-      const newItem: Item = { id: Date.now(), text: prevState.currentText };
+      const newItem: Item = {
+        id: Date.now(),
+        text: prevState.currentText,
+        completed: true
+      };
       return { items: [...prevState.items, newItem], currentText: "" };
     });
   }
+
   handleChange(e: any) {
     this.setState({ currentText: e.target.value });
   }
   onHandleDelete(e: any, id: number) {
-    console.log("one", id);
+    // this.setState((prevState) => {
+    //   const updateItems = prevState.items.map((item)=> {
+    //     return(item.id === id) ? item.completed:!item.completed ?item.completed })
+    // });
   }
   render() {
     return (
