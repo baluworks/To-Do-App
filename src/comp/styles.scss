@@ -1,0 +1,41 @@
+body {font-family: sans-serif;}
+.show {
+  text-decoration:none;
+}
+.strike {
+  text-decoration:line-through;
+  
+}
+div .todo_input{
+  float: right;
+}
+div .list_box{
+  float: left;
+}
+ul { 
+  /* list style is faked with number inputs */
+  list-style: none;
+  padding: 0;
+}
+
+li { 
+    position: relative; 
+    min-height: 1em;
+    cursor: move;
+    padding: .5em .5em .5em 2.5em;
+    background: #eee;
+    border: 1px solid #ccc;
+    margin: .25em 0;
+    border-radius: .25em;
+    max-width: 14em;
+    text-align: left;
+}
+
+
+
+li button{
+  position: relative;
+  right: 2px;
+  margin-right: 0;
+  border: 1px solid black;
+}
