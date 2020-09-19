@@ -6,6 +6,12 @@ body {font-family: sans-serif;}
   text-decoration:line-through;
   
 }
+.hide-error{
+display: none;
+}
+.show-error{
+display: block;
+}
 div .todo_input{
   float: right;
 }

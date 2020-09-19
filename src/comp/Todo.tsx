@@ -56,6 +56,10 @@ export class TODOComp extends React.Component<any, State> {
           <button onClick={this.onHandleSubmit}>
             Add {this.state.items.length} #Item
           </button>
+          <div className={this.state.currentText ? "hide-error" : "show-error"}>
+            {" "}
+            enter Text to add Item.
+          </div>
         </form>
       </div>
     );
