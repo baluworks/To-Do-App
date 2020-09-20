@@ -18,6 +18,12 @@ div .todo_input{
 div .list_box{
   float: left;
 }
+div .list{
+  height: 250px;
+  width:250px;  
+  background-color: #eee;
+  overflow-y: auto;
+}
 ul { 
   /* list style is faked with number inputs */
   list-style: none;

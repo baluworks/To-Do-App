@@ -6,18 +6,20 @@ interface ItemModel {
   onComplete: Function;
 }
 export class TodoList extends React.Component<ItemModel, any> {
+  listReference: React.RefObject<HTMLDivElement>;
   //1.Called  when the instance of component is beign created and inserted in DOM. - Mounting
   constructor(props: ItemModel) {
     console.log("TODOLIST - constructor(Mount) ");
     super(props);
     this.state = { name: "" };
+    this.listReference = React.createRef();
   }
 
   //2.Called when instance of component is beigin created and inserted in DOM - Mouning
   render() {
     console.log("TODOLIST - render(Mount) ");
     return (
-      <div>
+      <div className="list" ref={this.listReference}>
         <ul>
           {this.props.items.map((item: Item) => (
             <li key={item.id}>
@@ -48,11 +50,9 @@ export class TodoList extends React.Component<ItemModel, any> {
     // this.setState({ name: "balajee" });
   }
 
-  // static getDerivedStateFromProps(props: ItemModel, state: any) {
-  //   console.log(props.items.length);
-  //   if (props.items.length > 0) return true;
-  //   else return false;
-  // }
+  static getDerivedStateFromProps(props: ItemModel, state: any) {
+    return null;
+  }
 
   shouldComponentUpdate(nextProp: ItemModel, nextState: any) {
     console.log(
@@ -62,12 +62,17 @@ export class TodoList extends React.Component<ItemModel, any> {
     return this.props.items !== nextProp.items;
   }
 
-  // getSnapshotBeforeUpdate() {
-  //   console.log("TODOLIST - getSnapshotBeforeUpdate (Update) ");
-  //   return null;
-  // }
+  getSnapshotBeforeUpdate(prevProps: ItemModel, prevState: any) {
+    console.log("TODOLIST - getSnapshotBeforeUpdate (Update) ");
+    const current = this.listReference.current;
+    if (prevProps.items.length < this.props.items.length)
+      return current && current.scrollHeight - current.scrollTop;
+    return null;
+  }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProp: ItemModel, prevState: any, snapshot: any) {
+    const list: any = this.listReference.current;
+    list.scrollTop = list.scrollHeight - snapshot;
     console.log("TODOLIST - componentDidUpdate (Update) ");
   }
 }
