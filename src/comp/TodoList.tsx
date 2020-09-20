@@ -62,9 +62,15 @@ export class TodoList extends React.Component<ItemModel, any> {
     return this.props.items !== nextProp.items;
   }
 
+  // It enables your component to capture some information from the DOM
+  //  (e.g. scroll position) before it is potentially changed
   getSnapshotBeforeUpdate(prevProps: ItemModel, prevState: any) {
-    console.log("TODOLIST - getSnapshotBeforeUpdate (Update) ");
     const current = this.listReference.current;
+    console.log(
+      "TODOLIST - getSnapshotBeforeUpdate (Update) ",
+      current && current.scrollHeight,
+      current && current.scrollTop
+    );
     if (prevProps.items.length < this.props.items.length)
       return current && current.scrollHeight - current.scrollTop;
     return null;
@@ -73,6 +79,6 @@ export class TodoList extends React.Component<ItemModel, any> {
   componentDidUpdate(prevProp: ItemModel, prevState: any, snapshot: any) {
     const list: any = this.listReference.current;
     list.scrollTop = list.scrollHeight - snapshot;
-    console.log("TODOLIST - componentDidUpdate (Update) ");
+    console.log("TODOLIST - componentDidUpdate (Update) ", list.scrollTop);
   }
 }
