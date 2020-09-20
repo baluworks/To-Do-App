@@ -63,7 +63,8 @@ export class TodoList extends React.Component<ItemModel, any> {
   }
 
   // It enables your component to capture some information from the DOM
-  //  (e.g. scroll position) before it is potentially changed
+  // (e.g. scroll position) before it is potentially changed
+  //refernce link :https://www.digitalocean.com/community/tutorials/react-get-derived-state
   getSnapshotBeforeUpdate(prevProps: ItemModel, prevState: any) {
     const current = this.listReference.current;
     console.log(
