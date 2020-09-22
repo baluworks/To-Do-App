@@ -34,11 +34,8 @@ export class TodoList extends React.Component<ItemModel, any> {
               <div className="todo_input">
                 <button
                   key={item.id}
-                  onClick={(e) => {
-                    this.props.onComplete(e, item.id);
-                  }}
+                  onClick={this.onTodoItemComplete.bind(this, item.id)}
                 >
-                  {" "}
                   Done
                 </button>
               </div>
@@ -87,4 +84,10 @@ export class TodoList extends React.Component<ItemModel, any> {
     list.scrollTop = list.scrollHeight - snapshot;
     console.log("TODOLIST - componentDidUpdate (Update) ", list.scrollTop);
   }
+
+  // using complate handler  to  avoid arrow function callbacks for events inside render methos. - best practice.
+
+  onTodoItemComplete = (id: number) => {
+    this.props.onComplete(id);
+  };
 }

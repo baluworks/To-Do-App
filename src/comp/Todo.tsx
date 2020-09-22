@@ -28,7 +28,7 @@ export class TODOComp extends React.Component<any, State> {
     this.setState({ currentText: e.target.value });
   }
 
-  onHandleComplete(e: any, id: number) {
+  onHandleComplete(id: number) {
     this.setState((prevState) => {
       console.log(prevState);
       const updateItems = prevState.items.map((item) => {
