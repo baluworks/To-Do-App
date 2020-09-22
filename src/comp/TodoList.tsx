@@ -14,6 +14,11 @@ export class TodoList extends React.Component<ItemModel, any> {
     this.state = { name: "" };
     this.listReference = React.createRef();
   }
+
+  static defaultprops = {
+    items: [],
+    onComplete: () => {}
+  };
   // https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
   //2.Called when instance of component is beigin created and inserted in DOM - Mouning
   render() {
