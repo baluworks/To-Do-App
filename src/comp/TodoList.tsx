@@ -27,7 +27,12 @@ export class TodoList extends React.Component<ItemModel, any> {
       <div className="list" ref={this.listReference}>
         <ul>
           {this.props.items.map((item: Item) => (
-            <li key={item.id}>
+            <li draggable
+              key={item.id}
+              onDrag={(e) => {
+                console.log(e);
+              }}
+            >
               <div className={`list_box ${item.completed ? "show" : "strike"}`}>
                 <label>{item.text} </label>
               </div>
