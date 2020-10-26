@@ -1,6 +1,8 @@
-import React from "react";
-import { TodoList } from "./TodoList";
+import React, { Suspense, lazy } from "react";
+//import { TodoList } from "./TodoList";
 import { Item, State } from "./todo.model";
+
+const TodoList = lazy(() => import("./TodoList"));
 
 export class TODOComp extends React.Component<any, State> {
   constructor(props: any) {
@@ -42,7 +44,7 @@ export class TODOComp extends React.Component<any, State> {
 
   render() {
     return (
-      <div>
+      <Suspense fallback={<div>Loading...</div>}>
         <TodoList items={this.state.items} onComplete={this.onHandleComplete} />
         <form>
           <label htmlFor="todo_text_box">Add Your Items here : </label>
@@ -61,7 +63,7 @@ export class TODOComp extends React.Component<any, State> {
             enter Text to add Item.
           </div>
         </form>
-      </div>
+      </Suspense>
     );
   }
 }

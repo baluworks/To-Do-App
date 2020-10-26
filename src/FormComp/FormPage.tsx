@@ -1,13 +1,31 @@
 // Controlled component.
 
 import React from "react";
+import { IUserProfile } from "../Models/IUserProfile";
 export class FormPage extends React.Component<any, any> {
   options: Array<string>;
-
+  userProfile: Array<IUserProfile> = [];
   constructor(props: any) {
     super(props);
     this.onhandleChange = this.onhandleChange.bind(this);
     this.options = ["laffaire", "bols", "morphes", "Zues"]; // Brandy Brands.
+    this.userProfile = [
+      {
+        label: "First Name",
+        name: "firstName",
+        placeholder: "Type Your First Name"
+      },
+      {
+        label: "Last Name",
+        name: "lastName",
+        placeholder: "Type Your Last Name"
+      },
+      {
+        label: "Mobile Number",
+        name: "mobileNumber",
+        placeholder: "Type Your Mobile Number"
+      }
+    ];
     this.state = { firstName: "", selectedOptions: [] };
   }
 
@@ -45,6 +63,13 @@ export class FormPage extends React.Component<any, any> {
             </option>
           ))}
         </select>
+        <div>
+          {this.userProfile.map((profile: IUserProfile) => (
+            <React.Fragment key={`profile ${profile.name}`}>
+              <label htmlFor={profile}></label>
+            </React.Fragment>
+          ))}
+        </div>
       </div>
     );
   }

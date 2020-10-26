@@ -1,11 +1,13 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Item } from "./todo.model";
+// import ListItem from "./TodoItem";
 import "./styles.scss";
 interface ItemModel {
   items: Array<Item>;
   onComplete: Function;
 }
-export class TodoList extends React.Component<ItemModel, any> {
+const ListItem = lazy(() => import("./TodoItem"));
+export default class TodoList extends React.Component<ItemModel, any> {
   listReference: React.RefObject<HTMLDivElement>;
   //1.Called  when the instance of component is beign created and inserted in DOM. - Mounting
   constructor(props: ItemModel) {
@@ -13,6 +15,7 @@ export class TodoList extends React.Component<ItemModel, any> {
     super(props);
     this.state = { name: "" };
     this.listReference = React.createRef();
+    this.onTodoItemComplete = this.onTodoItemComplete.bind(this);
   }
 
   static defaultprops = {
@@ -24,30 +27,19 @@ export class TodoList extends React.Component<ItemModel, any> {
   render() {
     console.log("TODOLIST - render(Mount) ");
     return (
-      <div className="list" ref={this.listReference}>
-        <ul>
-          {this.props.items.map((item: Item) => (
-            <li draggable
-              key={item.id}
-              onDrag={(e) => {
-                console.log(e);
-              }}
-            >
-              <div className={`list_box ${item.completed ? "show" : "strike"}`}>
-                <label>{item.text} </label>
-              </div>
-              <div className="todo_input">
-                <button
-                  key={item.id}
-                  onClick={this.onTodoItemComplete.bind(this, item.id)}
-                >
-                  Done
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Suspense fallback={<div>Rendering...</div>}>
+        <div className="list" ref={this.listReference}>
+          <ul>
+            {this.props.items.map((item: Item) => (
+              <ListItem
+                item={item}
+                key={item.id}
+                onTodoItemComplete={this.onTodoItemComplete}
+              />
+            ))}
+          </ul>
+        </div>
+      </Suspense>
     );
   }
 
