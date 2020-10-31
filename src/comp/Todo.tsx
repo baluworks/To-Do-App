@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 //import { TodoList } from "./TodoList";
 import { Item, State } from "./todo.model";
 
+import { AddTodo } from "./AddTodo";
 const TodoList = lazy(() => import("./TodoList"));
 
 export class TODOComp extends React.Component<any, State> {
@@ -47,17 +48,12 @@ export class TODOComp extends React.Component<any, State> {
       <Suspense fallback={<div>Loading...</div>}>
         <TodoList items={this.state.items} onComplete={this.onHandleComplete} />
         <form>
-          <label htmlFor="todo_text_box">Add Your Items here : </label>
-          <input
-            type="text"
-            name="todo_text_box"
-            id="todo_text_box"
-            value={this.state.currentText}
-            onChange={this.handleChange}
+          <AddTodo
+            currentText={this.state.currentText}
+            handleChange={this.handleChange}
+            length={this.state.items.length}
+            onHandleSubmit={this.onHandleSubmit}
           />
-          <button onClick={this.onHandleSubmit}>
-            Add {this.state.items.length} #Item
-          </button>
           <div className={this.state.currentText ? "hide-error" : "show-error"}>
             {" "}
             enter Text to add Item.
